@@ -1,0 +1,20 @@
+# Ignore node_modules globally
+node_modules/
+
+# Ignore environment files in both client and server
+client/.env
+server/.env
+
+# Ignore build folders
+client/dist/
+client/build/
+server/build/
+
+# Ignore logs
+*.log
+
+# Optional: Ignore Docker local overrides
+docker-compose.override.yml
+
+# Optional: Ignore local VSCode settings
+.vscode/

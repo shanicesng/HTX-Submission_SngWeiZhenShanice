@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres
+    container_name: mypostgres
+    environment:
+      POSTGRES_USER: users
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: users_auth
+    ports:
+      - "5433:5432"  
+
+  server:
+    build: ./server
+    container_name: backend
+    ports:
+      - "3000:3000"
+    environment:
+      PG_HOST: db
+      PG_USER: users
+      PG_PASSWORD: 1234
+      PG_DATABASE: users_auth
+      PG_PORT: 5432
+    depends_on:
+      - db
+
+  client:
+    build:
+      context: ./client/app
+      dockerfile: Dockerfile 
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+
+volumes:
+  pgdata:
